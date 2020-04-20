@@ -1,0 +1,270 @@
+body,
+html {
+  background-color: #f5f4f0;
+  overflow: hidden;
+}
+body *,
+html * {
+  outline: none;
+  box-sizing: border-box;
+}
+body .red,
+html .red {
+  color: #f00;
+}
+body .add-pointer,
+html .add-pointer {
+  cursor: pointer;
+}
+body md-divider.top-space,
+html md-divider.top-space {
+  margin-top: 5px;
+}
+body md-divider.bottom-space,
+html md-divider.bottom-space {
+  margin-bottom: 5px;
+}
+body .md-toolbar-tools,
+html .md-toolbar-tools {
+  display: flex;
+}
+body .message-container,
+html .message-container {
+  min-height: auto;
+}
+body .logo-container,
+html .logo-container {
+  background-color: #1c1c1c;
+}
+body .logo-container .logo,
+html .logo-container .logo {
+  background-image: url("images/filsons.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 160px;
+  height: 38.2px;
+  fill: #fff;
+  display: block;
+}
+body .qrcode,
+html .qrcode {
+  background-color: #1c1c1c;
+  min-height: 111px;
+  padding: 0;
+}
+body .qrcode .qrcode-message,
+html .qrcode .qrcode-message {
+  text-align: center;
+}
+body .qrcode .qrcode-backdrop,
+html .qrcode .qrcode-backdrop {
+  background-color: #fff;
+  min-width: 111px;
+  min-height: 111px;
+}
+body md-content::before,
+html md-content::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  z-index: -1;
+  background-color: #f5f4f0;
+}
+body md-dialog-content.detail-view,
+html md-dialog-content.detail-view {
+  background-color: #f5f4f0;
+}
+body md-dialog-content.detail-view md-card-content .md-media-xl,
+html md-dialog-content.detail-view md-card-content .md-media-xl {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+body md-dialog-content.detail-view md-card-content .md-media-xl.detail-view,
+html md-dialog-content.detail-view md-card-content .md-media-xl.detail-view {
+  width: 350px;
+  height: 350px;
+}
+body md-content,
+html md-content {
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
+}
+body md-content.main,
+html md-content.main {
+  padding: 0 !important;
+}
+body md-content .no-click,
+html md-content .no-click {
+  pointer-events: none;
+}
+body md-content h2,
+html md-content h2 {
+  color: #000;
+}
+body md-content md-card,
+html md-content md-card {
+  flex-wrap: wrap;
+  border: 3px solid transparent;
+}
+body md-content md-card .altimages img,
+html md-content md-card .altimages img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 3px;
+}
+body md-content md-card md-card-title md-card-title-text .md-headline,
+html md-content md-card md-card-title md-card-title-text .md-headline {
+  font-weight: 400;
+  letter-spacing: inherit;
+  line-height: 24px;
+  text-transform: none;
+  margin-bottom: 10px;
+}
+body md-content md-card md-card-title md-card-title-text .price,
+html md-content md-card md-card-title md-card-title-text .price {
+  text-decoration: line-through;
+  color: #777;
+}
+body md-content md-card md-card-title md-card-title-text .sale,
+html md-content md-card md-card-title md-card-title-text .sale {
+  color: #000;
+}
+body md-content md-card md-card-title md-card-title-text .discount,
+html md-content md-card md-card-title md-card-title-text .discount {
+  color: #f00;
+}
+body md-content md-card md-card-title md-card-title-text .type,
+html md-content md-card md-card-title md-card-title-text .type {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+body md-content md-card md-card-title md-card-title-text .sizes,
+html md-content md-card md-card-title md-card-title-text .sizes {
+  margin-top: 10px;
+}
+body md-content md-card md-card-title md-card-title-text .sizes button,
+html md-content md-card md-card-title md-card-title-text .sizes button {
+  border: 1px solid #f5f4f0 !important;
+}
+body md-content md-card md-card-title md-card-title-media,
+html md-content md-card md-card-title md-card-title-media {
+  background-color: #f5f4f0;
+}
+body md-content md-card md-card-title md-card-title-media .md-media-lg,
+html md-content md-card md-card-title md-card-title-media .md-media-lg {
+  width: 250px;
+  height: 250px;
+}
+body md-content md-card .item-media,
+html md-content md-card .item-media {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+body md-content md-card .item-media.small,
+html md-content md-card .item-media.small,
+body md-content md-card .item-media.medium,
+html md-content md-card .item-media.medium,
+body md-content md-card .item-media.large,
+html md-content md-card .item-media.large {
+  background-size: contain;
+}
+body md-content md-card .item-media.medium,
+html md-content md-card .item-media.medium {
+  height: 200px;
+  width: 200px;
+}
+body md-content md-card .item-media.large,
+html md-content md-card .item-media.large {
+  height: 250px;
+  width: 250px;
+}
+.invisible {
+  visibility: hidden;
+}
+.item-description {
+  margin-left: 15px;
+}
+ripples {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+.ripple {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  margin-left: -0.5em;
+  border: 2px solid rgba(34,34,34,0.7);
+  border-radius: 50%;
+  opacity: 0;
+  animation-name: rippleOut;
+  animation-duration: 0.7s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+}
+@-moz-keyframes rippleOut {
+  0% {
+    transform: rotate(45deg) scale(0.2);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(45deg) scale(2.2);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes rippleOut {
+  0% {
+    transform: rotate(45deg) scale(0.2);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(45deg) scale(2.2);
+    opacity: 0;
+  }
+}
+@-o-keyframes rippleOut {
+  0% {
+    transform: rotate(45deg) scale(0.2);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(45deg) scale(2.2);
+    opacity: 0;
+  }
+}
+@keyframes rippleOut {
+  0% {
+    transform: rotate(45deg) scale(0.2);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(45deg) scale(2.2);
+    opacity: 0;
+  }
+}

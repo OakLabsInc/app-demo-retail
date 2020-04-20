@@ -1,0 +1,109 @@
+
+<html ng-app="demoApp">
+  <head>
+    <title>Payment Demo</title>
+    <link href="vendor/angular-material.min.css" rel="stylesheet" type="text/css"/>
+    <link href="index.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body ng-controller="appController" ng-click="tapped($event); idleTimeout()" ng-mousemove="mouseMoved($event)" ng-cloak="">
+    <ripples>
+      <div class="ripple" ng-repeat="r in ripples" ng-style="{ top: r.y + 'px', left: r.x + 'px' }"></div>
+    </ripples>
+    <md-content class="main" layout="column" layout-align="start center" flex="flex" layout-fill="layout-fill" layout-padding="layout-padding">
+      <md-toolbar class="message-container">
+        <md-toolbar-tools layout="row" layout-align="space-between center"><span class="md-subhead" layout="row" layout-align="start center" flex="33"> <span>SIGN UP FOR THE NEWSLETTER</span></span><span class="md-subhead" layout="row" layout-align="center center" flex="33"><span>NEW ARRIVALS</span></span><span class="md-subhead" layout="row" layout-align="end center" flex="33"> <span>CHAT</span></span></md-toolbar-tools>
+      </md-toolbar>
+      <md-toolbar class="logo-container" layout="row" layout-align="center center" layout-padding="layout-padding">
+        <md-toolbar-tools class="logo"></md-toolbar-tools>
+      </md-toolbar>
+      <h2 class="md-headline">Sale Items</h2>
+      <div class="pick-size" layout="row" layout-align="center start" flex="flex" layout-wrap="layout-wrap">
+        <md-card class="demo-item" ng-repeat="item in data.items" flex="45">
+          <md-card-title>
+            <md-card-title-text layout="column" layout-align="start start"> <span class="md-headline proctuct-name">{{item.name}}</span><span> <span class="price">{{item.price | currency}} </span><span class="sale">{{item.sale | currency}}</span></span><span class="discount">{{item.discount}}% Off</span><span class="sku">NO. {{item.sku}}</span><span class="type">{{item.type.name}}</span>
+              <md-divider></md-divider>
+              <md-button class="md-primary md-raised" ng-click="showItemDetails(item, $event)">View Details</md-button>
+            </md-card-title-text>
+            <md-card-title-media>
+              <div class="md-media-lg card-media item-media" ng-class="[item.name]" ng-style="{'background-image':'url(images/products/' + item.type.images[0]+ ')'}"></div>
+            </md-card-title-media>
+          </md-card-title>
+        </md-card>
+      </div>
+      <md-toolbar class="demo-total" layout="row" layout-align="space-between center"> 
+        <div class="total md-subhead" layout="row" layout-align="start center"> <span>CART {{cart.length}} Items </span>
+          <button class="md-button md-raised" ng-click="viewCart($event)">View Cart</button>
+        </div>
+        <div class="total md-subhead">Total {{demoTotal | currency}}</div>
+      </md-toolbar>
+      <md-toolbar class="qrcode" layout="row" layout-align="end center" ng-cloak="ng-cloak">
+        <div class="qrcode-message" layout="row" layout-align="end" layout-padding="layout-padding">
+          <div flex="flex">Scan this QR Code to control the screen cursor</div>
+        </div>
+        <div class="qrcode-backdrop">QRCODE</div>
+      </md-toolbar>
+    </md-content>
+    <div class="invisible" ng-cloak="ng-cloak">
+      <div class="md-dialog-container" id="cartDetailDialog">
+        <md-dialog flex="70">
+          <md-dialog-content class="md-dialog-content detail-view" layout="column" layout-align="stretch">
+            <md-content>
+              <md-card layout="row" layout-align="start stretch">
+                <md-card-title flex="40">
+                  <md-card-title-text><span class="md-headline proctuct-name">{{selectedItem.name}}</span><span> <span class="price">{{selectedItem.price | currency}} </span><span class="sale">{{selectedItem.sale | currency}}</span></span><span class="discount">{{selectedItem.discount}}% Off</span><span class="sku">NO. {{selectedItem.sku}}</span><span class="type">{{selectedItem.type.name}}</span><span class="description">Description</span><span class="description-text">{{selectedItem.description.text}}</span></md-card-title-text>
+                </md-card-title>
+                <md-card-content flex="60" layout="row" layout-align="start" layout-padding="layout-padding">
+                  <div class="md-media-xl card-media detail-view" ng-style="{'background-image':'url(images/products/' + selectedItem.type.images[0] + ')'}"></div>
+                  <div class="swatches" layout="column" layout-align="start start">
+                    <div class="altimages" ng-repeat="img in selectedItem.type.images"><img ng-if="$index != 0" src="images/products/{{img}}"/></div>
+                  </div>
+                </md-card-content>
+                <div class="sizes" layout="row" layout-align="start start" layout-wrap="layout-wrap">
+                  <md-button class="md-primary" ng-repeat="size in selectedItem.type.sizes" ng-class="{'md-raised':selectedItem.size == size }" ng-click="selectedItem.size = size">{{size}}</md-button>
+                </div>
+              </md-card>
+            </md-content>
+            <md-dialog-actions>
+              <button class="md-button md-primary md-raised" ng-click="continueShopping()">Continue Shopping</button>
+              <button class="md-button md-primary md-raised" ng-click="addToCart(selectedItem)" ng-disabled="!selectedItem.size">Add To Cart</button>
+            </md-dialog-actions>
+          </md-dialog-content>
+        </md-dialog>
+      </div>
+    </div>
+    <div class="invisible">
+      <div class="md-dialog-container" id="cartViewDialog">
+        <md-dialog flex="70">
+          <md-dialog-content class="md-dialog-content" layout="column" layout-align="stretch">
+            <h2 class="md-headline" layout-align="center">Cart</h2>
+            <div class="order">
+              <div class="cart-items" ng-repeat="item in cart track by [item.sku, item.size, item.type.name ]">
+                <md-divider class="bottom-space"></md-divider>
+                <div class="item" layout="row" layout-align="center"><span class="red add-pointer" flex="5" ng-click="removeFromCart(item,$event)">X</span><span flex="5">{{item.quantity}}</span><span flex="10">&num;{{item.sku}}</span><span flex="40">{{item.name}} </span><span flex="10">({{item.size}})</span><span flex="25">{{item.type.name}}</span><span flex="10" layout="row" layout-align="end center"> <span>{{item.sale | currency}}</span></span></div>
+                <div class="item-description md-subhead" ng-repeat="mod in item.modifiers" layout="row" layout-align="space-between start"><span>{{mod.name | capitalize}}</span><span>{{mod.size}}</span><span>{{mod.price | currency}}</span></div>
+              </div>
+              <md-divider class="top-space bottom-space"></md-divider>
+              <div class="cart-tax" layout="row" layout-align="end start"><span>8.6% Tax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ cart.tax | currency}}</span></div>
+              <div class="cart-total" layout="row" layout-align="end start"><span>Total&nbsp;&nbsp;&nbsp;{{ cart.total | currency}}</span></div>
+            </div>
+          </md-dialog-content>
+          <md-dialog-actions>
+            <button class="md-button md-primary md-raised" ng-click="continueShopping()">Continue Shopping</button>
+            <button class="md-button md-primary md-raised" ng-click="printReceipt()">Print Receipt</button>
+          </md-dialog-actions>
+        </md-dialog>
+      </div>
+    </div>
+    <canvas id="printer-canvas"></canvas>
+    <div style="display:none"><img id="printer-image-source" src="images/printer-logo.png" width="256" height="256"/></div>
+    <script src="vendor/lodash.min.js"></script>
+    <script src="vendor/angular.min.js"></script>
+    <script src="vendor/angular-animate.min.js"></script>
+    <script src="vendor/angular-aria.min.js"></script>
+    <script src="vendor/angular-messages.min.js"></script>
+    <script src="vendor/angular-material.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/dataService.js"></script>
+    <script src="js/appController.js"></script>
+  </body>
+</html>
