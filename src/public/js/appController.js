@@ -7,7 +7,8 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
     $scope.showCursor = false
     $scope.shouldReload = false
     $scope.cursorTimeout = 10000
-    $scope.demoTotal = 0
+
+  
     $scope.env = {}
     $scope.showQrcode = false
 
@@ -171,20 +172,40 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
         fullscreen: false
       })
     }
+
+    $scope.showPrompt = function(id, ev) {
+      var showPrompt = $mdDialog.show({
+        scope: $scope,
+        preserveScope: true,
+        contentElement: `#${id}`,
+        parent: window.angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose: false,
+        fullscreen: false
+      })
+    }
+
+    $scope.checkout = function(id,ev) {
+      $mdDialog.hide()
+      $scope.showPrompt(id,ev)
+      console.log($scope.cart)
+      $timeout(function(){
+        $mdDialog.hide()
+        $scope.showPrompt('showApproved',ev)
+      },4000)
+    }
     $scope.printReceipt = function(){
+      $scope.updateCartTotals()
       console.log("Cart: ", $scope.cart)
-      let subtotal = _($scope.cart).sumBy('total')
-      let tax = subtotal * .086
-      let total = _($scope.cart).sumBy('total') + tax
       $http({
         method: 'POST',
         url: 'http://localhost:9001/print-receipt',
         data: {
                 'cart': $scope.cart,
                 'env': $scope.env,
-                'subtotal': subtotal,
-                'tax': tax,
-                'total': total
+                'subtotal': $scope.cart.subtotal,
+                'tax': $scope.cart.tax,
+                'total': $scope.cart.total
               }
       }).then(function successCallback (success) {
         console.log(success)
@@ -217,6 +238,7 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
     $scope.initApp = function () {
       oak.ready()
       oak.on('env-sent',function(obj){
+        $scope.env = obj
         $timeout(function(){
           if(obj.hasOwnProperty("HAS_QRCODE") && obj.HAS_QRCODE === 'true'){
             $scope.showQrcode = true

@@ -40,9 +40,9 @@ html(ng-app="demoApp")
       md-toolbar.demo-total(layout="row" layout-align="space-between center") 
           .total.md-subhead(layout="row" layout-align="start center") 
             span CART {{cart.length}} Items 
-            button.md-button.md-raised(ng-click='viewCart($event)') View Cart
+            button.md-button.md-raised.cart-button(ng-click='viewCart($event)') View Cart
 
-          .total.md-subhead Total {{demoTotal | currency}}
+          .total.md-subhead(ng-if="cart.total") Total {{cart.total | currency}}
       md-toolbar.qrcode(layout="row" layout-align="end center"  ng-cloak)
         .qrcode-message(layout="row" layout-align="end" layout-padding)
           div(flex) Scan this QR Code to control the screen cursor
@@ -108,6 +108,26 @@ html(ng-app="demoApp")
 
             md-dialog-actions
               button.md-button.md-primary.md-raised(ng-click='continueShopping()') Continue Shopping
+              button.md-button.md-primary.md-raised(ng-click='checkout("waitingForTerminal", $event)') Check Out Now
+    .invisible
+      .md-dialog-container#waitingForTerminal
+          md-dialog(flex=70)
+            md-dialog-content.md-dialog-content(layout='column' layout-align="center center")
+              h2.md-headline(layout-align="center") Processing
+              div Please insert you card in the terminal to the right
+              div &nbsp;
+              md-progress-circular(md-mode="indeterminate")
+            md-dialog-actions
+              button.md-button.md-primary.md-raised(ng-click='continueShopping()') Cancel Check Out
+    .invisible
+      .md-dialog-container#showApproved
+          md-dialog(flex=70)
+            md-dialog-content.md-dialog-content(layout='column' layout-align="center center")
+              h2.md-headline(layout-align="center") Approved
+              div Your order purchase was approved. You may print a receipt.
+              div &nbsp;
+
+            md-dialog-actions
               button.md-button.md-primary.md-raised(ng-click='printReceipt()') Print Receipt
     canvas(id="printer-canvas")
     div(style="display:none")

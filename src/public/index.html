@@ -32,9 +32,9 @@
       </div>
       <md-toolbar class="demo-total" layout="row" layout-align="space-between center"> 
         <div class="total md-subhead" layout="row" layout-align="start center"> <span>CART {{cart.length}} Items </span>
-          <button class="md-button md-raised" ng-click="viewCart($event)">View Cart</button>
+          <button class="md-button md-raised cart-button" ng-click="viewCart($event)">View Cart</button>
         </div>
-        <div class="total md-subhead">Total {{demoTotal | currency}}</div>
+        <div class="total md-subhead" ng-if="cart.total">Total {{cart.total | currency}}</div>
       </md-toolbar>
       <md-toolbar class="qrcode" layout="row" layout-align="end center" ng-cloak="ng-cloak">
         <div class="qrcode-message" layout="row" layout-align="end" layout-padding="layout-padding">
@@ -89,6 +89,35 @@
           </md-dialog-content>
           <md-dialog-actions>
             <button class="md-button md-primary md-raised" ng-click="continueShopping()">Continue Shopping</button>
+            <button class="md-button md-primary md-raised" ng-click="checkout(&quot;waitingForTerminal&quot;, $event)">Check Out Now</button>
+          </md-dialog-actions>
+        </md-dialog>
+      </div>
+    </div>
+    <div class="invisible">
+      <div class="md-dialog-container" id="waitingForTerminal">
+        <md-dialog flex="70">
+          <md-dialog-content class="md-dialog-content" layout="column" layout-align="center center">
+            <h2 class="md-headline" layout-align="center">Processing</h2>
+            <div>Please insert you card in the terminal to the right</div>
+            <div>&nbsp;</div>
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+          </md-dialog-content>
+          <md-dialog-actions>
+            <button class="md-button md-primary md-raised" ng-click="continueShopping()">Cancel Check Out</button>
+          </md-dialog-actions>
+        </md-dialog>
+      </div>
+    </div>
+    <div class="invisible">
+      <div class="md-dialog-container" id="showApproved">
+        <md-dialog flex="70">
+          <md-dialog-content class="md-dialog-content" layout="column" layout-align="center center">
+            <h2 class="md-headline" layout-align="center">Approved</h2>
+            <div>Your order purchase was approved. You may print a receipt.</div>
+            <div>&nbsp;</div>
+          </md-dialog-content>
+          <md-dialog-actions>
             <button class="md-button md-primary md-raised" ng-click="printReceipt()">Print Receipt</button>
           </md-dialog-actions>
         </md-dialog>

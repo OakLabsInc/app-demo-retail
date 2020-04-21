@@ -16,6 +16,10 @@ body .add-pointer,
 html .add-pointer {
   cursor: pointer;
 }
+body button.cart-button,
+html button.cart-button {
+  color: #000 !important;
+}
 body md-divider.top-space,
 html md-divider.top-space {
   margin-top: 5px;
