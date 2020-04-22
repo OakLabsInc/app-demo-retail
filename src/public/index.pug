@@ -74,14 +74,14 @@ html(ng-app="demoApp")
                       .altimages(ng-repeat="img in selectedItem.type.images")
                         img(ng-if="$index != 0" src="images/products/{{img}}")
                   .sizes( layout='row' layout-align="start start" layout-wrap)
-                    md-button.md-primary(ng-repeat="size in selectedItem.type.sizes"  ng-class="{'md-raised':selectedItem.size == size }" ng-click="selectedItem.size = size") {{size}}
+                    md-button.md-primary.size-button(ng-repeat="size in selectedItem.type.sizes"  style="border: 1px solid #999999!important" ng-class="{'md-raised':selectedItem.size == size }" ng-click="selectedItem.size = size") {{size}}
               md-dialog-actions
                 button.md-button.md-primary.md-raised(ng-click='continueShopping()') Continue Shopping
                 button.md-button.md-primary.md-raised(ng-click='addToCart(selectedItem)' ng-disabled="!selectedItem.size") Add To Cart
     //- Cart Dialog
     .invisible
         .md-dialog-container#cartViewDialog
-          md-dialog(flex=70)
+          md-dialog(flex=80)
             md-dialog-content.md-dialog-content(layout='column' layout-align="stretch")
               h2.md-headline(layout-align="center") Cart
               .order
@@ -108,7 +108,7 @@ html(ng-app="demoApp")
 
             md-dialog-actions
               button.md-button.md-primary.md-raised(ng-click='continueShopping()') Continue Shopping
-              button.md-button.md-primary.md-raised(ng-click='checkout("waitingForTerminal", $event)') Check Out Now
+              button.md-button.md-primary.md-raised(ng-click='checkout("waitingForTerminal", $event)' ng-disabled="!cart.length") Check Out Now
     .invisible
       .md-dialog-container#waitingForTerminal
           md-dialog(flex=70)
@@ -129,6 +129,7 @@ html(ng-app="demoApp")
 
             md-dialog-actions
               button.md-button.md-primary.md-raised(ng-click='printReceipt()') Print Receipt
+              button.md-button.md-primary.md-raised(ng-click='finishShopping()') Finish
     canvas(id="printer-canvas")
     div(style="display:none")
       img(id="printer-image-source" src="images/printer-logo.png" width="256" height="256")

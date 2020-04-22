@@ -148,6 +148,11 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
       $mdDialog.hide()
     }
 
+    $scope.finishShopping = function() {
+      $scope.cart = []
+      $mdDialog.hide()
+    }
+
     $scope.viewCart = function(ev){
       
       var cartView = $mdDialog.show({

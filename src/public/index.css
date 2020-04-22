@@ -152,9 +152,9 @@ body md-content md-card md-card-title md-card-title-text .sizes,
 html md-content md-card md-card-title md-card-title-text .sizes {
   margin-top: 10px;
 }
-body md-content md-card md-card-title md-card-title-text .sizes button,
-html md-content md-card md-card-title md-card-title-text .sizes button {
-  border: 1px solid #f5f4f0 !important;
+body md-content md-card md-card-title md-card-title-text .sizes .size-button,
+html md-content md-card md-card-title md-card-title-text .sizes .size-button {
+  border: 1px solid #666 !important;
 }
 body md-content md-card md-card-title md-card-title-media,
 html md-content md-card md-card-title md-card-title-media {
