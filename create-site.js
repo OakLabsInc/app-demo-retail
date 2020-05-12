@@ -2,16 +2,17 @@
 var fs = require('fs');
 var archiver = require('archiver');
 const { join } = require('path')
- 
+require('dotenv').config();
 var dir = './dist';
+
 
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
 }
 
-fs.createReadStream(join(__dirname,'src','public','images','filsons.png')).pipe(fs.createWriteStream(join(__dirname,'dist','filsons.png')));
+fs.createReadStream(join(__dirname,'src','public','images', 'thumbnail.png')).pipe(fs.createWriteStream(join(__dirname,'dist','thumbnail.png')));
 // create a file to stream archive data to.
-var output = fs.createWriteStream(join(__dirname,'dist','filsons.zip'));
+var output = fs.createWriteStream(join(__dirname,'dist','retail.zip'));
 var archive = archiver('zip', {
   zlib: { level: 9 } // Sets the compression level.
 });
@@ -47,5 +48,5 @@ archive.on('error', function(err) {
  
 // pipe archive data to the file
 archive.pipe(output);
-archive.directory(join(__dirname,"src","public"), "filsons");
+archive.directory(join(__dirname,"src","public"), 'retail');
 archive.finalize();

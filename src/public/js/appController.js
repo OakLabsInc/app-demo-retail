@@ -1,4 +1,4 @@
-app.controller('appController', function ($document, $element, $log, $sce, $timeout, $scope, $http, $window, $mdDialog, oak, _, env, dataService, epson) {
+app.controller('appController', function ($document, $element, $log, $sce, $timeout, $scope, $http, $window, $mdDialog, oak, _, _env, dataService, epson) {
     // ripples
     $scope.untapped = true
     $scope.cursor = {
@@ -62,9 +62,12 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
       }
     }
       
-    $scope.data = dataService.getDemoData()
-    $scope.selectedTypeIndex = 0
+
+    $scope.data = dataService.getData()
+    console.log("data: ", $scope.data)
     $scope.selectedItem = $scope.data.items[0]
+    $scope.selectedTypeIndex = 0
+
     
     $scope.demoOrder = {}
     $scope.cart = []
@@ -244,6 +247,8 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
       oak.ready()
       oak.on('env-sent',function(obj){
         $scope.env = obj
+        $scope.env.STORE_NAME = "strand"
+
         $timeout(function(){
           if(obj.hasOwnProperty("HAS_QRCODE") && obj.HAS_QRCODE === 'true'){
             $scope.showQrcode = true

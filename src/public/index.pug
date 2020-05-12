@@ -3,7 +3,7 @@ html(ng-app="demoApp")
     title Payment Demo
     link(href='vendor/angular-material.min.css', rel='stylesheet', type='text/css')
     link(href='index.css', rel='stylesheet', type='text/css')
-  body(ng-controller="appController" ng-click="tapped($event); idleTimeout()" ng-mousemove="mouseMoved($event)" ng-cloak="")
+  body(ng-controller="appController" ng-click="tapped($event); idleTimeout()" ng-mousemove="mouseMoved($event)" ng-cloak)
     ripples
       .ripple(ng-repeat="r in ripples", ng-style="{ top: r.y + 'px', left: r.x + 'px' }")
 
@@ -16,8 +16,8 @@ html(ng-app="demoApp")
             span NEW ARRIVALS
           span.md-subhead(layout="row" layout-align="end center" flex="33") 
             span CHAT
-      md-toolbar.logo-container(layout="row" layout-align="center center" layout-padding)
-        md-toolbar-tools.logo
+      md-toolbar.logo-container(ng-class="strand" layout="row" layout-align="center center" layout-padding)
+        md-toolbar-tools.logo(ng-class="strand" ng-style="{'background-image': 'url(' + data.logo + ')'}")
       h2.md-headline Sale Items
       .pick-size(layout="row" layout-align="center start" flex layout-wrap)
         md-card.demo-item(ng-repeat="item in data.items"  flex="45")
@@ -33,7 +33,7 @@ html(ng-app="demoApp")
                 md-divider
                 md-button.md-primary.md-raised(ng-click="showItemDetails(item, $event)") View Details
               md-card-title-media
-                div.md-media-lg.card-media.item-media(ng-class="[item.name]" ng-style="{'background-image':'url(images/products/' + item.type.images[0]+ ')'}")
+                div.md-media-lg.card-media.item-media(ng-class="[item.name]" ng-style="{'background-image':'url(' + item.type.images[0]+ ')'}")
             //- md-card-actions(layout="row" layout-align="end center"  layout-padding)
               
       //- pre {{cart | json}}      
@@ -69,10 +69,10 @@ html(ng-app="demoApp")
                           
                   //- pre {{selectedItem | json}}
                   md-card-content(flex="60" layout="row" layout-align="start" layout-padding)
-                    .md-media-xl.card-media.detail-view(ng-style="{'background-image':'url(images/products/' + selectedItem.type.images[0] + ')'}")
+                    .md-media-xl.card-media.detail-view(ng-style="{'background-image':'url(' + selectedItem.type.images[0] + ')'}")
                     .swatches(layout='column' layout-align="start start")
                       .altimages(ng-repeat="img in selectedItem.type.images")
-                        img(ng-if="$index != 0" src="images/products/{{img}}")
+                        img(ng-if="$index != 0" src="{{img}}")
                   .sizes( layout='row' layout-align="start start" layout-wrap)
                     md-button.md-primary.size-button(ng-repeat="size in selectedItem.type.sizes"  style="border: 1px solid #999999!important" ng-class="{'md-raised':selectedItem.size == size }" ng-click="selectedItem.size = size") {{size}}
               md-dialog-actions

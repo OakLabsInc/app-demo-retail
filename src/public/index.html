@@ -5,7 +5,7 @@
     <link href="vendor/angular-material.min.css" rel="stylesheet" type="text/css"/>
     <link href="index.css" rel="stylesheet" type="text/css"/>
   </head>
-  <body ng-controller="appController" ng-click="tapped($event); idleTimeout()" ng-mousemove="mouseMoved($event)" ng-cloak="">
+  <body ng-controller="appController" ng-click="tapped($event); idleTimeout()" ng-mousemove="mouseMoved($event)" ng-cloak="ng-cloak">
     <ripples>
       <div class="ripple" ng-repeat="r in ripples" ng-style="{ top: r.y + 'px', left: r.x + 'px' }"></div>
     </ripples>
@@ -13,8 +13,8 @@
       <md-toolbar class="message-container">
         <md-toolbar-tools layout="row" layout-align="space-between center"><span class="md-subhead" layout="row" layout-align="start center" flex="33"> <span>SIGN UP FOR THE NEWSLETTER</span></span><span class="md-subhead" layout="row" layout-align="center center" flex="33"><span>NEW ARRIVALS</span></span><span class="md-subhead" layout="row" layout-align="end center" flex="33"> <span>CHAT</span></span></md-toolbar-tools>
       </md-toolbar>
-      <md-toolbar class="logo-container" layout="row" layout-align="center center" layout-padding="layout-padding">
-        <md-toolbar-tools class="logo"></md-toolbar-tools>
+      <md-toolbar class="logo-container" ng-class="strand" layout="row" layout-align="center center" layout-padding="layout-padding">
+        <md-toolbar-tools class="logo" ng-class="strand" ng-style="{'background-image': 'url(' + data.logo + ')'}"></md-toolbar-tools>
       </md-toolbar>
       <h2 class="md-headline">Sale Items</h2>
       <div class="pick-size" layout="row" layout-align="center start" flex="flex" layout-wrap="layout-wrap">
@@ -25,7 +25,7 @@
               <md-button class="md-primary md-raised" ng-click="showItemDetails(item, $event)">View Details</md-button>
             </md-card-title-text>
             <md-card-title-media>
-              <div class="md-media-lg card-media item-media" ng-class="[item.name]" ng-style="{'background-image':'url(images/products/' + item.type.images[0]+ ')'}"></div>
+              <div class="md-media-lg card-media item-media" ng-class="[item.name]" ng-style="{'background-image':'url(' + item.type.images[0]+ ')'}"></div>
             </md-card-title-media>
           </md-card-title>
         </md-card>
@@ -53,9 +53,9 @@
                   <md-card-title-text><span class="md-headline proctuct-name">{{selectedItem.name}}</span><span> <span class="price">{{selectedItem.price | currency}} </span><span class="sale">{{selectedItem.sale | currency}}</span></span><span class="discount">{{selectedItem.discount}}% Off</span><span class="sku">NO. {{selectedItem.sku}}</span><span class="type">{{selectedItem.type.name}}</span><span class="description">Description</span><span class="description-text">{{selectedItem.description.text}}</span></md-card-title-text>
                 </md-card-title>
                 <md-card-content flex="60" layout="row" layout-align="start" layout-padding="layout-padding">
-                  <div class="md-media-xl card-media detail-view" ng-style="{'background-image':'url(images/products/' + selectedItem.type.images[0] + ')'}"></div>
+                  <div class="md-media-xl card-media detail-view" ng-style="{'background-image':'url(' + selectedItem.type.images[0] + ')'}"></div>
                   <div class="swatches" layout="column" layout-align="start start">
-                    <div class="altimages" ng-repeat="img in selectedItem.type.images"><img ng-if="$index != 0" src="images/products/{{img}}"/></div>
+                    <div class="altimages" ng-repeat="img in selectedItem.type.images"><img ng-if="$index != 0" src="{{img}}"/></div>
                   </div>
                 </md-card-content>
                 <div class="sizes" layout="row" layout-align="start start" layout-wrap="layout-wrap">

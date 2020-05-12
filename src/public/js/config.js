@@ -8,7 +8,7 @@ var app = window.angular
   .module('demoApp', ['ngMaterial', 'ngMessages'])
   .constant('oak', window.oak)
   .constant('_', window._)
-  .constant('env', window.env)
+  .constant('_env', window.env)
   .constant('epson', window.epson)
   .run(function ($rootScope) {
     $rootScope._ = window.lodash

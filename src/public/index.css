@@ -38,15 +38,43 @@ html .message-container {
 }
 body .logo-container,
 html .logo-container {
+  min-height: 164px;
+  background-color: #fff;
+}
+body .logo-container.filsons,
+html .logo-container.filsons {
+  min-height: 64px;
   background-color: #1c1c1c;
+}
+body .logo-container.strand,
+html .logo-container.strand {
+  min-height: 164px;
+  background-color: #fff;
 }
 body .logo-container .logo,
 html .logo-container .logo {
-  background-image: url("images/filsons.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 140px;
+  height: 100px;
+  fill: #fff;
+  display: block;
+}
+body .logo-container .logo.filsons,
+html .logo-container .logo.filsons {
   background-repeat: no-repeat;
   background-size: cover;
   width: 160px;
   height: 38.2px;
+  fill: #fff;
+  display: block;
+}
+body .logo-container .logo.strand,
+html .logo-container .logo.strand {
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 140px;
+  height: 100px;
   fill: #fff;
   display: block;
 }

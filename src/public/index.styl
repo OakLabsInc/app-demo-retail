@@ -21,15 +21,37 @@ body, html
   .message-container
     min-height auto
   .logo-container
-    background-color rgb(28, 28, 28)
+    min-height 164px
+    background-color rgb(255,255,255)
+    &.filsons
+      min-height 64px
+      background-color rgb(28, 28, 28)
+    &.strand
+      min-height 164px
+      background-color rgb(255,255,255)
     .logo
-      background-image url(images/filsons.svg)
       background-repeat no-repeat
       background-size cover
-      width 160px
-      height 38.20px
+      width 140px
+      height 100px
       fill white
       display block
+      &.filsons
+        // background-image url(images/filsons.svg)
+        background-repeat no-repeat
+        background-size cover
+        width 160px
+        height 38.20px
+        fill white
+        display block
+      &.strand
+      // background-image url(images/filsons.svg)
+        background-repeat no-repeat
+        background-size cover
+        width 140px
+        height 100px
+        fill white
+        display block
   .qrcode
     background-color rgb(28, 28, 28)
     min-height 111px
