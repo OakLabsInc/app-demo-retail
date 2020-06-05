@@ -196,12 +196,49 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
     $scope.checkout = function(id,ev) {
       $mdDialog.hide()
       $scope.showPrompt(id,ev)
+      
+      $scope.ev = ev
+      // $timeout(function(){
+      //   $mdDialog.hide()
+      //   $scope.showPrompt('showApproved',ev)
+      // },4000)
+      $scope.cart.taxRate = .086
       console.log($scope.cart)
-      $timeout(function(){
+
+      $http({
+        method: 'POST',
+        url: `http://localhost:9001/send-cart`,
+        data: {
+          'cart': $scope.cart,
+          'env': $scope.env,
+          'subtotal': $scope.cart.subtotal,
+          'taxRate': .086,
+          'tax': $scope.cart.tax,
+          'total': $scope.cart.total
+        }
+      }).then(function(success) {
+        console.log("REQUEST SENT : ", success)
+      }, function(error) {
+        console.log("ERROR: ", error)
         $mdDialog.hide()
-        $scope.showPrompt('showApproved',ev)
-      },4000)
+        $scope.showPrompt('errorOccured',$scope.ev)
+      })
     }
+
+    oak.on('payment-response', function(resObj){
+      $timeout(function(){    
+        console.log("TERMINAL RESPONSE: ", resObj)
+        if(resObj.data.status == "SUCCESS"){
+          $mdDialog.hide()
+          $scope.showPrompt('showApproved',$scope.ev)
+        } else {
+          $mdDialog.hide()
+          $scope.showPrompt('showDenied',$scope.ev)
+        }
+      })
+    })
+
+
     $scope.printReceipt = function(){
       $scope.updateCartTotals()
       console.log("Cart: ", $scope.cart)
@@ -246,10 +283,11 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
     $scope.initApp = function () {
       oak.ready()
       oak.on('env-sent',function(obj){
-        $scope.env = obj
-        $scope.env.STORE_NAME = "strand"
-
+        
         $timeout(function(){
+          $scope.env = obj
+          $scope.env.STORE_NAME = "strand"
+          console.log("ENVIRONMENT: ", $scope.env)
           if(obj.hasOwnProperty("HAS_QRCODE") && obj.HAS_QRCODE === 'true'){
             $scope.showQrcode = true
           } else {
