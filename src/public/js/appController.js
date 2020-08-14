@@ -207,7 +207,7 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
 
       $http({
         method: 'POST',
-        url: `http://localhost:9001/send-cart`,
+        url: 'http://localhost:' + $scope.env.PORT + '/send-cart',
         data: {
           'cart': $scope.cart,
           'env': $scope.env,
@@ -272,30 +272,39 @@ app.controller('appController', function ($document, $element, $log, $sce, $time
     }
     
     $scope.timedOut = function(){
-      oak.reload()
+      let url = 'http://localhost:' + $scope.env.PORT + '/qrcode/restart'
+      $http.get(url).then( function(success){
+        console.log("/qrcode/restart: ", success)
+      }, function(error){
+        console.log("ERROR: ", error)
+      })
     }
-    
+    oak.on('pageReload', function(){
+      oak.reload()
+    })
     $scope.resetTimer = function() {
       clearTimeout($scope.timer);
-      $scope.timer = setTimeout($scope.timedOut, 120000);  // time is in milliseconds
+      $scope.timer = setTimeout($scope.timedOut, parseInt($scope.env.IDLE_TIMEOUT) * 1000);  // time is in milliseconds
     }
     
     $scope.initApp = function () {
       oak.ready()
-      oak.on('env-sent',function(obj){
-        
+      $http.get('/env').then(function(success){
         $timeout(function(){
-          $scope.env = obj
+          $scope.env = success.data
           $scope.env.STORE_NAME = "strand"
           console.log("ENVIRONMENT: ", $scope.env)
-          if(obj.hasOwnProperty("HAS_QRCODE") && obj.HAS_QRCODE === 'true'){
+          if(success.hasOwnProperty("HAS_QRCODE") && success.HAS_QRCODE === 'true'){
             $scope.showQrcode = true
           } else {
             $scope.showQrcode = false
           }
           // console.log("HAS_QRCODE: ",$scope.showQrcode)
         })
+      }, function(error) {
+
       })
+     
     }
     
     $scope.initApp()
