@@ -34,7 +34,7 @@
   "dependencies": {
     "dotenv": "~8.2.0",
     "express": "~4.16.3",
-    "lodash": "~4.17.20",
+    "lodash": "~4.17.21",
     "nib": "~1.1.2",
     "pug-cli": "~1.0.0-alpha6",
     "stylus": "~0.54.8"
